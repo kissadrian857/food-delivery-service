@@ -2,19 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>food-delivery-service</artifactId>
+        <groupId>hu.ulyssys.java.course</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hu.ulyssys.java.course</groupId>
-    <artifactId>food-delivery-service</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>food-delivery-api</module>
-        <module>food-delivery-backend</module>
-        <module>food-delivery-ear</module>
-        <module>food-delivery-frontend</module>
-        <module>food-delivery-parent</module>
-    </modules>
+    <artifactId>food-delivery-parent</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
