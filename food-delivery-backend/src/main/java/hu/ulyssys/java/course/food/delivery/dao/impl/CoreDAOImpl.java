@@ -17,7 +17,7 @@ public abstract class CoreDAOImpl<T extends AbstractEntity> implements CoreDAO<T
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     @Override
     public List<T> findAll() {
-        return entityManager.createQuery("select n from " + getManagedClass().getSimpleName() + "n order by n.id",getManagedClass()).getResultList();
+        return entityManager.createQuery("select n from " + getManagedClass().getSimpleName() + " n order by n.id",getManagedClass()).getResultList();
     }
 
     @Override
