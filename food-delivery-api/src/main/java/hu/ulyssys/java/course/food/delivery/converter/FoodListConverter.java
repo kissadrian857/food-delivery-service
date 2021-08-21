@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
 
 @Converter
 public class FoodListConverter implements AttributeConverter<List<Food>, String> {
+    //TODO itt egy warning később még okozhat fejfájást
     @Inject
     private FoodService foodService;
     private final String GROUP_DELIMITER = ",";
