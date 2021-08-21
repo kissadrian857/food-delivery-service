@@ -1,10 +1,15 @@
 package hu.ulyssys.java.course.food.delivery.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 
-public class AbstractEntity {
+@MappedSuperclass
+public abstract class AbstractEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "creation_date")
     private Date creationDate;
 
     public Long getId() {

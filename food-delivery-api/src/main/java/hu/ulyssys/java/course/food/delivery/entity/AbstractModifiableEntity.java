@@ -1,12 +1,22 @@
 package hu.ulyssys.java.course.food.delivery.entity;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
-public class AbstractModifiableEntity extends AbstractEntity{
+@MappedSuperclass
+public abstract class AbstractModifiableEntity extends AbstractEntity{
+    @Column(name = "modified_date")
     private Date modifiedDate;
 
+    @JoinColumn(name = "user_id")
+    @ManyToOne
     private User creatorUser;
 
+    @JoinColumn(name = "user_id")
+    @ManyToOne
     private User modifierUser;
 
     public Date getModifiedDate() {

@@ -1,21 +1,28 @@
 package hu.ulyssys.java.course.food.delivery.entity;
 
+import hu.ulyssys.java.course.food.delivery.converter.FoodListConverter;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table
 public class Order extends AbstractModifiableEntity {
+    @Column(name = "delivery_date")
     private Date deliveryDate;
-
+    @JoinColumn(name = "courier_id")
+    @ManyToOne
     private Courier courier;
-
+    @Convert(converter = FoodListConverter.class)
     private List<Food> foods;
-
+    @Column(name = "settlement")
     private String settlement;
-
+    @Column(name = "public_domain")
     private String publicDomain;
-
+    @Column(name = "public_area_type")
     private String typeOfPublicArea;
-
+    @Column(name = "house_number")
     private String houseNumber;
 
     public Date getDeliveryDate() {
