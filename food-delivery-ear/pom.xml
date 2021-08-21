@@ -40,11 +40,11 @@
                             <groupId>hu.ulyssys.java.course</groupId>
                             <artifactId>food-delivery-backend</artifactId>
                         </ejbModule>
-                        <webmodule>
+                        <webModule>
                             <groupId>hu.ulyssys.java.course</groupId>
                             <artifactId>food-delivery-frontend</artifactId>
                             <contextRoot>/</contextRoot>
-                        </webmodule>
+                        </webModule>
                     </modules>
                     <outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
                 </configuration>
