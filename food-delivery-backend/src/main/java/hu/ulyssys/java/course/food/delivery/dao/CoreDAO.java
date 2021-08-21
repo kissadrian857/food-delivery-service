@@ -11,5 +11,5 @@ public interface CoreDAO<T extends AbstractEntity> {
 
     T save(T entity);
 
-    void delete(T entity);
+    void delete(Long id);
 }
