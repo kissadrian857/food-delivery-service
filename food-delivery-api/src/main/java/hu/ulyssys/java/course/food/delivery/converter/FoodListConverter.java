@@ -5,14 +5,16 @@ import hu.ulyssys.java.course.food.delivery.service.FoodService;
 
 import javax.inject.Inject;
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.StringTokenizer;
 
+@Converter
 public class FoodListConverter implements AttributeConverter<List<Food>, String> {
     @Inject
-    FoodService foodService;
+    private FoodService foodService;
     private final String GROUP_DELIMITER = ",";
 
     @Override
