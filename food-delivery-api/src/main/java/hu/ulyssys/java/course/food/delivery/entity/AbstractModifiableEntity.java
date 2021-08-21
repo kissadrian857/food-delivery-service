@@ -2,7 +2,7 @@ package hu.ulyssys.java.course.food.delivery.entity;
 
 import java.util.Date;
 
-public class AbstractModifiableEntity {
+public class AbstractModifiableEntity extends AbstractEntity{
     private Date modifiedDate;
 
     private User creatorUser;
