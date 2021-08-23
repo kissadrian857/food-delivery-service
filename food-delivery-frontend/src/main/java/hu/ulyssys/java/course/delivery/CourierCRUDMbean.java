@@ -11,15 +11,15 @@ import javax.inject.Named;
 
 @Named
 @ViewScoped
-public class CourierCRUDMbean extends CoreCRUDMbean<Courier> {
+public class CourierCRUDMbean extends CoreModifiableCRUDMbean<Courier> {
 
     @Inject
     public CourierCRUDMbean(CourierService service) {
         super(service);
     }
 
-    @Override
-    protected Courier initNewEntity() {
-        return new Courier();
-    }
+//    @Override
+//    protected Courier initNewEntity() {
+//        return new Courier();
+//    }
 }

@@ -9,14 +9,14 @@ import javax.inject.Named;
 
 @Named
 @ViewScoped
-public class OrderCRUDMbean extends CoreCRUDMbean<Order> {
+public class OrderCRUDMbean extends CoreModifiableCRUDMbean<Order> {
     @Inject
     public OrderCRUDMbean(OrderService service) {
         super(service);
     }
 
-    @Override
-    protected Order initNewEntity() {
-        return new Order();
-    }
+//    @Override
+//    protected Order initNewEntity() {
+//        return new Order();
+//    }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+    <title>Food Delivery Service</title>
+</h:head>
+<body>
+<h:form id="form">
+    <p:commandButton value="New" icon="pi pi-save" update="form"/>
+    <p:commandButton value="Modify" icon="pi pi-shopping-cart" update="form"
+                     disabled="#{foodCRUDMbean.disableModifyButton()}"/>
+    <p:dataTable id="foods" var="food" value="#{foodCRUDMbean.list}" rowKey="#{food.id}"
+                 selection="#{foodCRUDMbean.selectedEntities}">
+        <f:facet name="header">
+            Available foods
+        </f:facet>
+        <p:column style="width:2rem">
+            <p:rowToggler/>
+        </p:column>
+        <p:column headerText="ID">
+            <h:outputText value="#{food.id}"/>
+        </p:column>
+        <p:column headerText="Name">
+            <h:outputText value="#{food.name}"/>
+        </p:column>
+        <p:column headerText="Description">
+            <h:outputText value="#{food.description}"/>
+        </p:column>
+        <p:column headerText="Price">
+            <h:outputText value="#{food.price}"/>
+        </p:column>
+        <!--        <p:column selectionMode="multiple" style="width:16px;text-align:center">-->
+        <!--            <p:ajax event="rowSelectCheckbox" update="form"/>-->
+        <!--        </p:column>-->
+        <p:column >
+            <p:selectBooleanCheckbox value="#{foodCRUDMbean.booleans.get(food).boolValue}">
+                <p:ajax update="form" listener="#{foodCRUDMbean.addOrRemove(food)}"/>
+            </p:selectBooleanCheckbox>
+        </p:column>
+
+        <!--    ROW EXPANSION ELEMENT -->
+        <p:rowExpansion>
+            <h:outputText value="Created by #{food.creatorUser.userName} (#{food.creationDate})"/>
+            <br/>
+            <h:outputText value="Modified by #{food.modifierUser.userName} (#{food.modifiedDate})"/>
+        </p:rowExpansion>
+    </p:dataTable>
+    <p:commandButton value="Buy" icon="pi pi-shopping-cart" update="form"/>
+    <h:outputText value="Number of selected entites: #{foodCRUDMbean.selectedEntities.size()}"/>
+</h:form>
+
+</body>
+</html>
