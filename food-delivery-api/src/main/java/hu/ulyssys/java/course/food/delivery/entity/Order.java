@@ -1,5 +1,6 @@
 package hu.ulyssys.java.course.food.delivery.entity;
 
+
 import hu.ulyssys.java.course.food.delivery.converter.FoodListConverter;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "order_table")
 public class Order extends AbstractModifiableEntity {
     @Column(name = "delivery_date")
     private Date deliveryDate;

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "courier")
 public class Courier extends AbstractModifiableEntity {
     @Column(name = "first_name")
     private String firstName;

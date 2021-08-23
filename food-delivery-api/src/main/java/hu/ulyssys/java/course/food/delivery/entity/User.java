@@ -2,11 +2,10 @@ package hu.ulyssys.java.course.food.delivery.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "user_table")
 public class User extends AbstractEntity {
     @Column(name = "username")
     private String userName;

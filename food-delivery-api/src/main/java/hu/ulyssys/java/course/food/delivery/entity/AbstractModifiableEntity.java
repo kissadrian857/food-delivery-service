@@ -7,15 +7,15 @@ import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
 @MappedSuperclass
-public abstract class AbstractModifiableEntity extends AbstractEntity{
+public abstract class AbstractModifiableEntity extends AbstractEntity {
     @Column(name = "modified_date")
     private Date modifiedDate;
 
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "creator_id")
     @ManyToOne
     private User creatorUser;
 
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "modifier_id")
     @ManyToOne
     private User modifierUser;
 

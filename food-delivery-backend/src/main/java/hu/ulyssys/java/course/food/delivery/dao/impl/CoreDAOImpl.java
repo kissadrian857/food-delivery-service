@@ -11,7 +11,7 @@ import java.util.List;
 
 public abstract class CoreDAOImpl<T extends AbstractEntity> implements CoreDAO<T> {
 
-    @PersistenceContext(unitName = "TestPersistence")
+    @PersistenceContext(unitName = "TestPersistenceNew")
     protected EntityManager entityManager;
 
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

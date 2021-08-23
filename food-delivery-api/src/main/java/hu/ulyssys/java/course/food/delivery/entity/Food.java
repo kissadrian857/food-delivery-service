@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "food")
 public class Food extends AbstractModifiableEntity {
     @Column(name = "name")
     private String name;
