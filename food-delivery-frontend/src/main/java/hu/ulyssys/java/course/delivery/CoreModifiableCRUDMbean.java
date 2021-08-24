@@ -23,9 +23,7 @@ public abstract class CoreModifiableCRUDMbean<T extends AbstractModifiableEntity
     }
 
     public void initializeModifiable() {
-        System.out.println();
         selectedModifiable = selectedEntities.get(0);
-        System.out.println();
     }
 
     public void modify() {
@@ -34,6 +32,5 @@ public abstract class CoreModifiableCRUDMbean<T extends AbstractModifiableEntity
         booleans.put(selectedModifiable,new BooleanWrapper(false));
         selectedModifiable = initNewEntity();
         selectedEntities.clear();
-
     }
 }

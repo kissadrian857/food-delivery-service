@@ -31,7 +31,6 @@ public abstract class CoreCRUDMbean<T extends AbstractEntity> implements Seriali
         //megváltoznak a referenciák az egyes elemekre
         populateBooleanMap();
         newEntity = initNewEntity();
-        System.out.println();
     }
 
     public void remove() {
