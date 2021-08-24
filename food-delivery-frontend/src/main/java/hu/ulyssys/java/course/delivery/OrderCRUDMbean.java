@@ -15,8 +15,8 @@ public class OrderCRUDMbean extends CoreModifiableCRUDMbean<Order> {
         super(service);
     }
 
-//    @Override
-//    protected Order initNewEntity() {
-//        return new Order();
-//    }
+    @Override
+    protected Order initNewEntity() {
+        return new Order();
+    }
 }

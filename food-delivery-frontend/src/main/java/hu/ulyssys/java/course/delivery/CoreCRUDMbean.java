@@ -5,36 +5,53 @@ import hu.ulyssys.java.course.food.delivery.entity.AbstractEntity;
 import hu.ulyssys.java.course.food.delivery.service.CoreService;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class CoreCRUDMbean<T extends AbstractEntity> implements Serializable {
-    protected List<T> list;
+    private T newEntity;
+    private List<T> list;
     protected List<T> selectedEntities;
     protected CoreService<T> service;
-    protected Map<T,BooleanWrapper> booleans;
+    protected Map<T, BooleanWrapper> booleans;
 
     public CoreCRUDMbean(CoreService<T> service) {
         this.service = service;
         selectedEntities = new ArrayList<>();
         list = service.getAll();
 
-        booleans= new HashMap<>();
-        for(T entity : list){
-            booleans.put(entity,new BooleanWrapper(false));
+        booleans = new HashMap<>();
+        populateBooleanMap();
+        newEntity = initNewEntity();
+    }
+
+    public void save() {
+        newEntity.setCreationDate(new Date(System.currentTimeMillis()));
+        service.add(newEntity);
+        list = service.getAll();
+        //megváltoznak a referenciák az egyes elemekre
+        populateBooleanMap();
+        newEntity = initNewEntity();
+        System.out.println();
+    }
+
+    public void remove() {
+        for (T entity : selectedEntities) {
+            service.remove(entity);
         }
+
+        list = service.getAll();
+        //megváltoznak a referenciák az egyes elemekre
+        populateBooleanMap();
+        selectedEntities.clear();
     }
 
-    public void save(T entity) {
-        //TODO implement
-    }
-
-
-
-    public void remove(T entity) {
-        //TODO implement
+    public void populateBooleanMap() {
+        if (!booleans.isEmpty()) {
+            booleans.clear();
+        }
+        for (T entity : list) {
+            booleans.put(entity, new BooleanWrapper(false));
+        }
     }
 
     public boolean disableModifyButton() {
@@ -47,6 +64,14 @@ public abstract class CoreCRUDMbean<T extends AbstractEntity> implements Seriali
 
     public void setList(List<T> list) {
         this.list = list;
+    }
+
+    public T getNewEntity() {
+        return newEntity;
+    }
+
+    public void setNewEntity(T newEntity) {
+        this.newEntity = newEntity;
     }
 
     public List<T> getSelectedEntities() {
@@ -63,5 +88,15 @@ public abstract class CoreCRUDMbean<T extends AbstractEntity> implements Seriali
 
     public void setBooleans(Map<T, BooleanWrapper> booleans) {
         this.booleans = booleans;
+    }
+
+    protected abstract T initNewEntity();
+
+    public void handleCheckbox(T entity) {
+        if (selectedEntities.contains(entity)) {
+            selectedEntities.remove(entity);
+        } else {
+            selectedEntities.add(entity);
+        }
     }
 }

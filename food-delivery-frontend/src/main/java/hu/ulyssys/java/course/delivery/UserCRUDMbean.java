@@ -12,8 +12,8 @@ public class UserCRUDMbean extends CoreCRUDMbean<User> {
         super(service);
     }
 
-//    @Override
-//    protected User initNewEntity() {
-//        return new User();
-//    }
+    @Override
+    protected User initNewEntity() {
+        return new User();
+    }
 }

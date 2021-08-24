@@ -9,9 +9,12 @@
     <title>Food Delivery Service</title>
 </h:head>
 <body>
-<h:form id="form">
-    <p:commandButton value="New" icon="pi pi-save" update="form"/>
-    <p:commandButton value="Modify" icon="pi pi-shopping-cart" update="form"
+<h:form id="mainForm">
+    <p:commandButton value="New" icon="pi pi-save" onclick="PF('newFoodDialog').show()"/>
+    <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm" actionListener="#{foodCRUDMbean.remove}"/>
+    <p:commandButton value="Modify" icon="pi pi-pencil" oncomplete="PF('modifyFoodDialog').show()"
+                     update=":foodDialog2"
+                     actionListener="#{foodCRUDMbean.initializeModifiable}"
                      disabled="#{foodCRUDMbean.disableModifyButton()}"/>
     <p:dataTable id="foods" var="food" value="#{foodCRUDMbean.list}" rowKey="#{food.id}"
                  selection="#{foodCRUDMbean.selectedEntities}">
@@ -33,25 +36,59 @@
         <p:column headerText="Price">
             <h:outputText value="#{food.price}"/>
         </p:column>
-        <!--        <p:column selectionMode="multiple" style="width:16px;text-align:center">-->
-        <!--            <p:ajax event="rowSelectCheckbox" update="form"/>-->
-        <!--        </p:column>-->
-        <p:column >
-            <p:selectBooleanCheckbox value="#{foodCRUDMbean.booleans.get(food).boolValue}">
-                <p:ajax update="form" listener="#{foodCRUDMbean.addOrRemove(food)}"/>
+        <p:column>
+            <p:selectBooleanCheckbox value="#{foodCRUDMbean.booleans.get(food).boolValue}" id="checkBox">
+                <p:ajax update="mainForm" listener="#{foodCRUDMbean.handleCheckbox(food)}"/>
             </p:selectBooleanCheckbox>
         </p:column>
-
-        <!--    ROW EXPANSION ELEMENT -->
         <p:rowExpansion>
             <h:outputText value="Created by #{food.creatorUser.userName} (#{food.creationDate})"/>
             <br/>
             <h:outputText value="Modified by #{food.modifierUser.userName} (#{food.modifiedDate})"/>
         </p:rowExpansion>
     </p:dataTable>
-    <p:commandButton value="Buy" icon="pi pi-shopping-cart" update="form"/>
+    <p:commandButton value="Buy" icon="pi pi-shopping-cart" update="mainForm"/>
     <h:outputText value="Number of selected entites: #{foodCRUDMbean.selectedEntities.size()}"/>
 </h:form>
+<!--ÚJ ELEM HOZZÁADÁSA -->
+<p:dialog id="foodDialog1" header="Add a new food" modal="true" closable="true" widgetVar="newFoodDialog">
+    <h:form>
+        <p:panelGrid layout="grid" columns="2" id="formPanel1" style="width: 400px">
+            <h:outputText value="Name: "/>
+            <p:inputText value="#{foodCRUDMbean.newEntity.name}"/>
+
+            <h:outputText value="Description:"/>
+            <p:inputText value="#{foodCRUDMbean.newEntity.description}"/>
+
+            <h:outputText value="Price"/>
+            <p:inputNumber value="#{foodCRUDMbean.newEntity.price}"/>
+
+            <p:commandButton value="Save" icon="pi pi-save" actionListener="#{foodCRUDMbean.save()}"
+                             process="formPanel1" oncomplete="PF('newFoodDialog').hide()"
+                             update=":foodDialog1 :mainForm"/>
+        </p:panelGrid>
+    </h:form>
+</p:dialog>
+<!-- MEGLÉVŐ ELEM MÓDOSÍTÁSA -->
+<p:dialog id="foodDialog2" widgetVar="modifyFoodDialog" header="Modify an existing food" modal="true" closable="true">
+    <h:form>
+        <p:panelGrid layout="grid" columns="2" id="formPanel2" style="width: 400px">
+            <h:outputText value="New name: "/>
+            <p:inputText value="#{foodCRUDMbean.selectedModifiable.name}"/>
+
+            <h:outputText
+                    value="New description:"/>
+            <p:inputText value="#{foodCRUDMbean.selectedModifiable.description}"/>
+
+            <h:outputText value="New price"/>
+            <p:inputNumber value="#{foodCRUDMbean.selectedModifiable.price}"/>
+
+            <p:commandButton value="Modify" actionListener="#{foodCRUDMbean.modify()}" process="formPanel2"
+                             oncomplete="PF('modifyFoodDialog').hide()" update=":mainForm"/>
+
+        </p:panelGrid>
+    </h:form>
+</p:dialog>
 
 </body>
 </html>

@@ -18,8 +18,8 @@ public class CourierCRUDMbean extends CoreModifiableCRUDMbean<Courier> {
         super(service);
     }
 
-//    @Override
-//    protected Courier initNewEntity() {
-//        return new Courier();
-//    }
+    @Override
+    protected Courier initNewEntity() {
+        return new Courier();
+    }
 }
