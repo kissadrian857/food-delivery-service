@@ -15,6 +15,7 @@ public class Order extends AbstractModifiableEntity {
     @JoinColumn(name = "courier_id")
     @ManyToOne
     private Courier courier;
+    @Column(name = "foods")
     @Convert(converter = FoodListConverter.class)
     private List<Food> foods;
     @Column(name = "settlement")

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+    <title>Orders</title>
+</h:head>
+<body>
+<h:form id="mainForm">
+    <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm" actionListener="#{orderCRUDMbean.remove}"/>
+    <p:commandButton value="Modify" icon="pi pi-pencil" oncomplete="PF('modifyOrderDialog').show()"
+                     actionListener="#{orderCRUDMbean.initializeModifiable()}"
+                     update=":orderDialog"
+                     disabled="#{orderCRUDMbean.disableModifyButton()}"/>
+    <p:dataTable id="orders" var="order" value="#{orderCRUDMbean.list}" rowKey="#{order.id}"
+                 selection="#{orderCRUDMbean.selectedEntities}">
+        <f:facet name="header">
+            Orders
+        </f:facet>
+        <p:column style="width:2rem">
+            <p:rowToggler/>
+        </p:column>
+        <p:column headerText="ID">
+            <h:outputText value="#{order.id}"/>
+        </p:column>
+        <p:column headerText="Delivery date">
+            <h:outputText value="#{order.deliveryDate}"/>
+        </p:column>
+        <p:column headerText="Courier">
+            <h:outputText value="#{order.courier}"/>
+        </p:column>
+
+        <!--TODO több étel kijelzése valahogy -->
+
+        <p:column headerText="Settlement">
+            <h:outputText value="#{order.settlement}"/>
+        </p:column>
+        <p:column headerText="Public domain">
+            <h:outputText value="#{order.publicDomain}"/>
+        </p:column>
+        <p:column headerText="Type of public area">
+            <h:outputText value="#{order.typeOfPublicArea}"/>
+        </p:column>
+        <p:column headerText="House number:">
+            <h:outputText value="#{order.houseNumber}"/>
+        </p:column>
+        <p:column>
+            <p:selectBooleanCheckbox value="#{orderCRUDMbean.booleans.get(order).boolValue}" id="checkBox">
+                <p:ajax update="mainForm" listener="#{orderCRUDMbean.handleCheckbox(order)}"/>
+            </p:selectBooleanCheckbox>
+        </p:column>
+        <p:rowExpansion>
+            <h:outputText value="Created by #{order.creatorUser} (#{order.creationDate})"/>
+            <br/>
+            <h:outputText value="Modified by #{order.modifierUser.userName} (#{order.modifiedDate})"/>
+        </p:rowExpansion>
+    </p:dataTable>
+    <!--    <h:outputText value="Number of selected entites: #{foodCRUDMbean.selectedEntities.size()}"/>-->
+</h:form>
+<!-- MEGLÉVŐ RENDELÉS MÓDOSÍTÁSA -->
+<p:dialog id="orderDialog" widgetVar="modifyOrderDialog" header="Modify an existing order" modal="true" closable="true">
+    <h:form>
+        <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 400px">
+            <h:outputText value="Delivery date:"/>
+            <p:datePicker id="basic" value="#{orderCRUDMbean.selectedModifiable.deliveryDate}" immediate="false"/>
+
+            <!--            <h:outputText value="Courier ID:"/>-->
+            <!--            <p:inputText value="#{orderCRUDMbean.selectedModifiable.courier}"/>-->
+
+            <h:outputText value="Settlement:"/>
+            <p:inputText value="#{orderCRUDMbean.selectedModifiable.settlement}"/>
+
+            <h:outputText value="Public domain:"/>
+            <p:inputText value="#{orderCRUDMbean.selectedModifiable.publicDomain}"/>
+
+            <h:outputText value="Type of public area:"/>
+            <p:inputText value="#{orderCRUDMbean.selectedModifiable.typeOfPublicArea}"/>
+
+            <h:outputText value="House number:"/>
+            <p:inputText value="#{orderCRUDMbean.selectedModifiable.houseNumber}"/>
+
+            <p:commandButton value="Modify" actionListener="#{orderCRUDMbean.modify()}" process="formPanel"
+                             oncomplete="PF('modifyOrderDialog').hide()" update=":mainForm"/>
+        </p:panelGrid>
+    </h:form>
+</p:dialog>
+
+</body>
+</html>

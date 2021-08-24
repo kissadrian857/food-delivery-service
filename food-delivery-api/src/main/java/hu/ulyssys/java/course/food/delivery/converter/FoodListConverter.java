@@ -13,13 +13,15 @@ import java.util.StringTokenizer;
 
 @Converter
 public class FoodListConverter implements AttributeConverter<List<Food>, String> {
-    //TODO itt egy warning később még okozhat fejfájást
     @Inject
     private FoodService foodService;
     private final String GROUP_DELIMITER = ",";
 
     @Override
     public String convertToDatabaseColumn(List<Food> foods) {
+        if (foods == null || foods.isEmpty()) {
+            return null;
+        }
         StringJoiner stringJoiner = new StringJoiner(GROUP_DELIMITER);
         for (Food food : foods) {
             stringJoiner.add(food.getId().toString());
@@ -30,6 +32,9 @@ public class FoodListConverter implements AttributeConverter<List<Food>, String>
 
     @Override
     public List<Food> convertToEntityAttribute(String s) {
+        if (s == null) {
+            return null;
+        }
         List<Food> foods = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(s, GROUP_DELIMITER);
         while (!st.hasMoreTokens()) {

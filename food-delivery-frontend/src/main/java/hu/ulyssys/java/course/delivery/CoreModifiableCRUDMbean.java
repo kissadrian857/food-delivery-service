@@ -8,7 +8,7 @@ import hu.ulyssys.java.course.food.delivery.service.CoreService;
 import java.util.Date;
 
 public abstract class CoreModifiableCRUDMbean<T extends AbstractModifiableEntity> extends CoreCRUDMbean<T> {
-    private T selectedModifiable;
+    protected T selectedModifiable;
 
     public CoreModifiableCRUDMbean(CoreService<T> service) {
         super(service);
