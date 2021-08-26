@@ -5,54 +5,66 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
-<h:head>
-    <title>Users</title>
-</h:head>
 <body>
-<h:form id="mainForm">
-    <!--TODO substitute the appropriate parts -->
-    <p:commandButton value="New" icon="pi pi-save" onclick="PF('newUserDialog').show()"/>
-    <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm" actionListener="#{userCRUDMbean.remove()}"/>
-    <p:dataTable id="users" var="user" value="#{userCRUDMbean.list}" rowKey="#{user.id}"
-                 selection="#{userCRUDMbean.selectedEntities}">
-        <f:facet name="header">
-            Users
-        </f:facet>
-        <p:column style="width:2rem">
-            <p:rowToggler/>
-        </p:column>
-        <p:column headerText="ID">
-            <h:outputText value="#{user.id}"/>
-        </p:column>
-        <p:column headerText="Username">
-            <h:outputText value="#{user.userName}"/>
-        </p:column>
-        <p:column headerText="Password">
-            <h:outputText value="#{user.password}"/>
-        </p:column>
-        <p:column>
-            <p:selectBooleanCheckbox value="#{userCRUDMbean.booleans.get(user).boolValue}" id="checkBox">
-                <p:ajax update="mainForm" listener="#{userCRUDMbean.handleCheckbox(user)}"/>
-            </p:selectBooleanCheckbox>
-        </p:column>
-        <p:rowExpansion>
-            <h:outputText value="Creation date: #{user.creationDate}"/>
-        </p:rowExpansion>
-    </p:dataTable>
-</h:form>
-<!-- ÚJ ELEM HOZZÁADÁSA -->
-<p:dialog id="userDialog1" header="Add a new user" modal="true" closable="true" widgetVar="newUserDialog">
-    <h:form>
-        <p:panelGrid layout="grid" columns="2" id="formPanel1" style="width: 400px">
-            <h:outputText value="Username: "/>
-            <p:inputText value="#{userCRUDMbean.newEntity.userName}"/>
-            <h:outputText value="Password: "/>
-            <p:inputText value="#{userCRUDMbean.newEntity.password}"/>
-            <p:commandButton value="Save" icon="pi pi-save" actionListener="#{userCRUDMbean.save()}"
-                             process="formPanel1" oncomplete="PF('newUserDialog').hide()"
-                             update=":userDialog1 :mainForm"/>
-        </p:panelGrid>
-    </h:form>
-</p:dialog>
+<ui:composition template="layout/mainTemplate.xhtml">
+    <ui:define name="title">Users</ui:define>
+    <ui:define name="content">
+        <h:form id="mainForm">
+
+
+            <p:commandButton value="New" icon="pi pi-save" onclick="PF('newUserDialog').show()"/>
+            <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
+                             actionListener="#{userCRUDMbean.remove()}"/>
+            <p:dataTable id="users" var="user" value="#{userCRUDMbean.list}" rowKey="#{user.id}"
+                         selection="#{userCRUDMbean.selectedEntities}">
+                <f:facet name="header">
+                    Users
+                </f:facet>
+                <p:column style="width:2rem">
+                    <p:rowToggler/>
+                </p:column>
+                <p:column headerText="ID">
+                    <h:outputText value="#{user.id}"/>
+                </p:column>
+                <p:column headerText="Username">
+                    <h:outputText value="#{user.userName}"/>
+                </p:column>
+                <p:column headerText="Password">
+                    <h:outputText value="#{user.password}"/>
+                </p:column>
+                <p:column headerText="Role">
+                    <h:outputText value="#{user.role}"/>
+                </p:column>
+                <p:column>
+                    <p:selectBooleanCheckbox value="#{userCRUDMbean.booleans.get(user).boolValue}" id="checkBox">
+                        <p:ajax update="mainForm" listener="#{userCRUDMbean.handleCheckbox(user)}"/>
+                    </p:selectBooleanCheckbox>
+                </p:column>
+                <p:rowExpansion>
+                    <h:outputText value="Creation date: #{user.creationDate}"/>
+                </p:rowExpansion>
+            </p:dataTable>
+        </h:form>
+        <!-- ÚJ ELEM HOZZÁADÁSA -->
+        <p:dialog id="userDialog1" header="Add a new user" modal="true" closable="true" widgetVar="newUserDialog">
+            <h:form>
+                <p:panelGrid layout="grid" columns="2" id="formPanel1" style="width: 400px">
+                    <h:outputText value="Username: "/>
+                    <p:inputText value="#{userCRUDMbean.newEntity.userName}"/>
+                    <h:outputText value="Password: "/>
+                    <p:inputText value="#{userCRUDMbean.newEntity.password}"/>
+                    <h:outputText value="Role: "/>
+                    <p:selectOneMenu value="#{userCRUDMbean.newEntity.role}">
+                        <f:selectItems value="#{userCRUDMbean.getRoles()}" var="role" itemValue="#{role}"
+                                       itemLabel="#{role.toString()}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Save" icon="pi pi-save" actionListener="#{userCRUDMbean.save()}"
+                                     process="formPanel1" oncomplete="PF('newUserDialog').hide()"
+                                     update=":userDialog1 :mainForm"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
 </body>
 </html>

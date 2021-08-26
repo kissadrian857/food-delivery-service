@@ -1,4 +1,4 @@
-package hu.ulyssys.java.course.delivery;
+package hu.ulyssys.java.course.delivery.mbean;
 
 import hu.ulyssys.java.course.delivery.helper.BooleanWrapper;
 import hu.ulyssys.java.course.food.delivery.entity.AbstractEntity;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public abstract class CoreCRUDMbean<T extends AbstractEntity> implements Serializable {
-    private T newEntity;
+    protected T newEntity;
     private List<T> list;
     protected List<T> selectedEntities;
     protected CoreService<T> service;

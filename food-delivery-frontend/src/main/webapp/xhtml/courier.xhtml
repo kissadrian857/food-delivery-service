@@ -5,86 +5,91 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
-<h:head>
-    <title>Couriers</title>
-</h:head>
 <body>
-<h:form id="mainForm">
-    <p:commandButton value="New" icon="pi pi-save" onclick="PF('newCourierDialog').show()"/>
-    <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm" actionListener="#{courierCRUDMbean.remove}"/>
-    <p:commandButton value="Modify" icon="pi pi-pencil" oncomplete="PF('modifyCourierDialog').show()"
-                     update=":courierDialog2"
-                     actionListener="#{courierCRUDMbean.initializeModifiable}"
-                     disabled="#{courierCRUDMbean.disableModifyButton()}"/>
-    <p:dataTable id="couriers" var="courier" value="#{courierCRUDMbean.list}" rowKey="#{courier.id}"
-                 selection="#{courierCRUDMbean.selectedEntities}">
-        <f:facet name="header">
-            Couriers
-        </f:facet>
-        <p:column style="width:2rem">
-            <p:rowToggler/>
-        </p:column>
-        <p:column headerText="ID">
-            <h:outputText value="#{courier.id}"/>
-        </p:column>
-        <p:column headerText="First name">
-            <h:outputText value="#{courier.firstName}"/>
-        </p:column>
-        <p:column headerText="Last name">
-            <h:outputText value="#{courier.lastName}"/>
-        </p:column>
-        <p:column headerText="Phone number">
-            <h:outputText value="#{courier.phoneNumber}"/>
-        </p:column>
-        <p:column>
-            <p:selectBooleanCheckbox value="#{courierCRUDMbean.booleans.get(courier).boolValue}" id="checkBox">
-                <p:ajax update="mainForm" listener="#{courierCRUDMbean.handleCheckbox(courier)}"/>
-            </p:selectBooleanCheckbox>
-        </p:column>
-        <p:rowExpansion>
-            <h:outputText value="Created by #{courier.creatorUser.userName} (#{courier.creationDate})"/>
-            <br/>
-            <h:outputText value="Modified by #{courier.modifierUser.userName} (#{courier.modifiedDate})"/>
-        </p:rowExpansion>
-    </p:dataTable>
-</h:form>
-<!--ÚJ ELEM HOZZÁADÁSA -->
-<p:dialog id="courierDialog1" header="Add a new courier" modal="true" closable="true" widgetVar="newCourierDialog">
-    <h:form>
-        <p:panelGrid layout="grid" columns="2" id="formPanel1" style="width: 400px">
-            <h:outputText value="First name: "/>
-            <p:inputText value="#{courierCRUDMbean.newEntity.firstName}"/>
+<ui:composition template="layout/mainTemplate.xhtml">
+    <ui:define name="title">Couriers</ui:define>
+    <ui:define name="content">
+        <h:form id="mainForm">
+            <p:commandButton value="New" icon="pi pi-save" onclick="PF('newCourierDialog').show()"/>
+            <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
+                             actionListener="#{courierCRUDMbean.remove}"/>
+            <p:commandButton value="Modify" icon="pi pi-pencil" oncomplete="PF('modifyCourierDialog').show()"
+                             update=":courierDialog2"
+                             actionListener="#{courierCRUDMbean.initializeModifiable}"
+                             disabled="#{courierCRUDMbean.disableModifyButton()}"/>
+            <p:dataTable id="couriers" var="courier" value="#{courierCRUDMbean.list}" rowKey="#{courier.id}"
+                         selection="#{courierCRUDMbean.selectedEntities}">
+                <f:facet name="header">
+                    Couriers
+                </f:facet>
+                <p:column style="width:2rem">
+                    <p:rowToggler/>
+                </p:column>
+                <p:column headerText="ID">
+                    <h:outputText value="#{courier.id}"/>
+                </p:column>
+                <p:column headerText="First name">
+                    <h:outputText value="#{courier.firstName}"/>
+                </p:column>
+                <p:column headerText="Last name">
+                    <h:outputText value="#{courier.lastName}"/>
+                </p:column>
+                <p:column headerText="Phone number">
+                    <h:outputText value="#{courier.phoneNumber}"/>
+                </p:column>
+                <p:column>
+                    <p:selectBooleanCheckbox value="#{courierCRUDMbean.booleans.get(courier).boolValue}" id="checkBox">
+                        <p:ajax update="mainForm" listener="#{courierCRUDMbean.handleCheckbox(courier)}"/>
+                    </p:selectBooleanCheckbox>
+                </p:column>
+                <p:rowExpansion>
+                    <h:outputText value="Created by #{courier.creatorUser.userName} (#{courier.creationDate})"/>
+                    <br/>
+                    <h:outputText value="Modified by #{courier.modifierUser.userName} (#{courier.modifiedDate})"/>
+                </p:rowExpansion>
+            </p:dataTable>
+        </h:form>
+        <!--ÚJ ELEM HOZZÁADÁSA -->
+        <p:dialog id="courierDialog1" header="Add a new courier" modal="true" closable="true"
+                  widgetVar="newCourierDialog">
+            <h:form>
+                <p:panelGrid layout="grid" columns="2" id="formPanel1" style="width: 400px">
+                    <h:outputText value="First name: "/>
+                    <p:inputText value="#{courierCRUDMbean.newEntity.firstName}"/>
 
-            <h:outputText value="Last name:"/>
-            <p:inputText value="#{courierCRUDMbean.newEntity.lastName}"/>
+                    <h:outputText value="Last name:"/>
+                    <p:inputText value="#{courierCRUDMbean.newEntity.lastName}"/>
 
-            <h:outputText value="Phone number"/>
-            <p:inputText value="#{courierCRUDMbean.newEntity.phoneNumber}"/>
+                    <h:outputText value="Phone number"/>
+                    <p:inputText value="#{courierCRUDMbean.newEntity.phoneNumber}"/>
 
-            <p:commandButton value="Save" icon="pi pi-save" actionListener="#{courierCRUDMbean.save()}"
-                             process="formPanel1" oncomplete="PF('newCourierDialog').hide()"
-                             update=":courierDialog1 :mainForm"/>
-        </p:panelGrid>
-    </h:form>
-</p:dialog>
-<!-- MEGLÉVŐ ELEM MÓDOSÍTÁSA -->
-<p:dialog id="courierDialog2" widgetVar="modifyCourierDialog" header="Modify an existing courier" modal="true" closable="true">
-    <h:form>
-        <p:panelGrid layout="grid" columns="2" id="formPanel2" style="width: 400px">
-            <h:outputText value="First name: "/>
-            <p:inputText value="#{courierCRUDMbean.selectedModifiable.firstName}"/>
+                    <p:commandButton value="Save" icon="pi pi-save" actionListener="#{courierCRUDMbean.save()}"
+                                     process="formPanel1" oncomplete="PF('newCourierDialog').hide()"
+                                     update=":courierDialog1 :mainForm"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        <!-- MEGLÉVŐ ELEM MÓDOSÍTÁSA -->
+        <p:dialog id="courierDialog2" widgetVar="modifyCourierDialog" header="Modify an existing courier" modal="true"
+                  closable="true">
+            <h:form>
+                <p:panelGrid layout="grid" columns="2" id="formPanel2" style="width: 400px">
+                    <h:outputText value="First name: "/>
+                    <p:inputText value="#{courierCRUDMbean.selectedModifiable.firstName}"/>
 
-            <h:outputText value="Last name:"/>
-            <p:inputText value="#{courierCRUDMbean.selectedModifiable.lastName}"/>
+                    <h:outputText value="Last name:"/>
+                    <p:inputText value="#{courierCRUDMbean.selectedModifiable.lastName}"/>
 
-            <h:outputText value="Phone number"/>
-            <p:inputText value="#{courierCRUDMbean.selectedModifiable.phoneNumber}"/>
+                    <h:outputText value="Phone number"/>
+                    <p:inputText value="#{courierCRUDMbean.selectedModifiable.phoneNumber}"/>
 
-            <p:commandButton value="Modify" actionListener="#{courierCRUDMbean.modify()}" process="formPanel2"
-                             oncomplete="PF('modifyCourierDialog').hide()" update=":mainForm"/>
+                    <p:commandButton value="Modify" actionListener="#{courierCRUDMbean.modify()}" process="formPanel2"
+                                     oncomplete="PF('modifyCourierDialog').hide()" update=":mainForm"/>
 
-        </p:panelGrid>
-    </h:form>
-</p:dialog>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
 </body>
 </html>

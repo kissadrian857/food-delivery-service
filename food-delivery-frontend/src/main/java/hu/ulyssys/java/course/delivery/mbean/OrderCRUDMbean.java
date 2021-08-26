@@ -1,4 +1,4 @@
-package hu.ulyssys.java.course.delivery;
+package hu.ulyssys.java.course.delivery.mbean;
 
 import hu.ulyssys.java.course.food.delivery.entity.Order;
 import hu.ulyssys.java.course.food.delivery.service.OrderService;
