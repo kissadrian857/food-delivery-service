@@ -9,9 +9,7 @@
 <ui:composition template="layout/mainTemplate.xhtml">
     <ui:define name="title">Users</ui:define>
     <ui:define name="content">
-        <h:form id="mainForm">
-
-
+        <h:form id="mainForm" rendered="#{loggedInUserBean.loggedIn}">
             <p:commandButton value="New" icon="pi pi-save" onclick="PF('newUserDialog').show()"/>
             <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
                              actionListener="#{userCRUDMbean.remove()}"/>

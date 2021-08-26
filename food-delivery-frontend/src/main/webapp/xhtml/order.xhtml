@@ -10,7 +10,7 @@
 <ui:composition template="layout/mainTemplate.xhtml">
     <ui:define name="title">Orders</ui:define>
     <ui:define name="content">
-        <h:form id="mainForm">
+        <h:form id="mainForm" rendered="#{loggedInUserBean.loggedIn}">
             <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
                              actionListener="#{orderCRUDMbean.remove}"/>
             <p:commandButton value="Modify" icon="pi pi-pencil" oncomplete="PF('modifyOrderDialog').show()"
@@ -35,9 +35,11 @@
                     <h:outputText value="#{order.courier.fullName}"/>
                 </p:column>
 
-                <!-- TODO implementálni a lista megjelenítését -->
                 <p:column headerText="Foods">
-                    <h:outputText value="#{order.foods}"/>
+                    <p:dataList value="#{order.foods}" var="food">
+                        <h:outputText value="#{food.name}"/>
+                        <br/>
+                    </p:dataList>
                 </p:column>
 
                 <p:column headerText="Settlement">
@@ -58,7 +60,10 @@
                     </p:selectBooleanCheckbox>
                 </p:column>
                 <p:rowExpansion>
-                    <h:outputText value="Created by #{order.creatorUser} (#{order.creationDate})"/>
+                    <!--                    <p:repeat value="#{order.foods}" var="actFood">-->
+                    <!--                        <p:outputLabel value="#{actFood.name}"/>-->
+                    <!--                    </p:repeat>-->
+                    <h:outputText value="Created by #{order.creatorUser.userName} (#{order.creationDate})"/>
                     <br/>
                     <h:outputText value="Modified by #{order.modifierUser.userName} (#{order.modifiedDate})"/>
                 </p:rowExpansion>

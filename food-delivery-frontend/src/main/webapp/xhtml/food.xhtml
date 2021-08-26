@@ -9,7 +9,7 @@
 <ui:composition template="layout/mainTemplate.xhtml">
     <ui:define name="title">Foods</ui:define>
     <ui:define name="content">
-        <h:form id="mainForm">
+        <h:form id="mainForm" rendered="#{loggedInUserBean.loggedIn}">
             <p:commandButton value="New" icon="pi pi-save" onclick="PF('newFoodDialog').show()"/>
             <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
                              actionListener="#{foodCRUDMbean.remove}"/>
@@ -48,7 +48,8 @@
                     <h:outputText value="Modified by #{food.modifierUser.userName} (#{food.modifiedDate})"/>
                 </p:rowExpansion>
             </p:dataTable>
-            <p:commandButton value="Buy" icon="pi pi-shopping-cart" update="mainForm"/>
+            <!-- RENDELÉS FELVÉTELE-->
+            <p:commandButton value="Buy" icon="pi pi-shopping-cart" onclick="PF('makeOrderDialog').show()"/>
         </h:form>
         <!--ÚJ ELEM HOZZÁADÁSA -->
         <p:dialog id="foodDialog1" header="Add a new food" modal="true" closable="true" widgetVar="newFoodDialog">
@@ -87,6 +88,30 @@
                     <p:commandButton value="Modify" actionListener="#{foodCRUDMbean.modify()}" process="formPanel2"
                                      oncomplete="PF('modifyFoodDialog').hide()" update=":mainForm"/>
 
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        <!-- RENDELÉS FELVÉTELE-->
+        <p:dialog id="makeOrderDialog" widgetVar="makeOrderDialog" header="Complete the fields please!" modal="true"
+                  closable="true">
+            <h:form>
+                <p:panelGrid layout="grid" columns="2" id="formPanel3" style="width: 400px">
+                    <h:outputText value="Settlement: "/>
+                    <p:inputText value="#{orderCRUDMbean.newEntity.settlement}"/>
+
+                    <h:outputText value="Public domain: "/>
+                    <p:inputText value="#{orderCRUDMbean.newEntity.publicDomain}"/>
+
+                    <h:outputText value="Type of public area: "/>
+                    <p:inputText value="#{orderCRUDMbean.newEntity.typeOfPublicArea}"/>
+
+                    <h:outputText value="House number: "/>
+                    <p:inputText value="#{orderCRUDMbean.newEntity.houseNumber}"/>
+
+                    <p:commandButton value="Save" icon="pi pi-save"
+                                     actionListener="#{orderCRUDMbean.saveOrder(foodCRUDMbean.selectedEntities)}"
+                                     process="formPanel3" oncomplete="PF('makeOrderDialog').hide()"
+                                     update=":makeOrderDialog"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>

@@ -9,7 +9,7 @@
 <ui:composition template="layout/mainTemplate.xhtml">
     <ui:define name="title">Couriers</ui:define>
     <ui:define name="content">
-        <h:form id="mainForm">
+        <h:form id="mainForm" rendered="#{loggedInUserBean.loggedIn}">
             <p:commandButton value="New" icon="pi pi-save" onclick="PF('newCourierDialog').show()"/>
             <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
                              actionListener="#{courierCRUDMbean.remove}"/>

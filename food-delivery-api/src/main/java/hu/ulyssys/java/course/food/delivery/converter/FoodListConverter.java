@@ -37,7 +37,7 @@ public class FoodListConverter implements AttributeConverter<List<Food>, String>
         }
         List<Food> foods = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(s, GROUP_DELIMITER);
-        while (!st.hasMoreTokens()) {
+        while (st.hasMoreTokens()) {
             Long id = Long.parseLong(st.nextToken());
             foods.add(foodService.findById(id));
         }
