@@ -12,10 +12,10 @@
     <ui:insert name="menuBar">
         <h:form id="menubarForm">
             <p:menubar>
-                <p:menuitem outcome="/xhtml/user.xhtml" value="Users" rendered="#{loggedInUserBean.loggedIn}"/>
+                <p:menuitem outcome="/xhtml/user.xhtml" value="Users" rendered="#{loggedInUserBean.admin}"/>
                 <p:menuitem outcome="/xhtml/food.xhtml" value="Foods"  rendered="#{loggedInUserBean.loggedIn}"/>
                 <p:menuitem outcome="/xhtml/order.xhtml" value="Orders"  rendered="#{loggedInUserBean.loggedIn}"/>
-                <p:menuitem outcome="/xhtml/courier.xhtml" value="Couriers"  rendered="#{loggedInUserBean.loggedIn}"/>
+                <p:menuitem outcome="/xhtml/courier.xhtml" value="Couriers"  rendered="#{loggedInUserBean.admin}"/>
                 <f:facet name="options">
                     <p:commandButton rendered="#{!loggedInUserBean.isLoggedIn()}" oncomplete="PF('loginDialog').show()"
                                      value="Login" icon="pi pi-fw pi-sign-in"

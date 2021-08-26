@@ -75,28 +75,32 @@
                   closable="true">
             <h:form>
                 <p:panelGrid layout="grid" columns="2" id="formPanel" style="width: 400px">
-                    <h:outputText value="Delivery date:"/>
+                    <h:outputText value="Delivery date:" rendered="#{loggedInUserBean.admin}"/>
                     <p:datePicker id="basic" value="#{orderCRUDMbean.selectedModifiable.deliveryDate}"
-                                  immediate="false"/>
+                                  rendered="#{loggedInUserBean.admin}"/>
 
                     <!--            <h:outputText value="Courier ID:"/>-->
                     <!--            <p:inputText value="#{orderCRUDMbean.selectedModifiable.courier}"/>-->
 
-                    <h:outputText value="Settlement:"/>
-                    <p:inputText value="#{orderCRUDMbean.selectedModifiable.settlement}"/>
+                    <h:outputText value="Settlement:" rendered="#{!loggedInUserBean.admin}"/>
+                    <p:inputText value="#{orderCRUDMbean.selectedModifiable.settlement}"
+                                 rendered="#{!loggedInUserBean.admin}"/>
 
-                    <h:outputText value="Public domain:"/>
-                    <p:inputText value="#{orderCRUDMbean.selectedModifiable.publicDomain}"/>
+                    <h:outputText value="Public domain:" rendered="#{!loggedInUserBean.admin}"/>
+                    <p:inputText value="#{orderCRUDMbean.selectedModifiable.publicDomain}"
+                                 rendered="#{!loggedInUserBean.admin}"/>
 
-                    <h:outputText value="Type of public area:"/>
-                    <p:inputText value="#{orderCRUDMbean.selectedModifiable.typeOfPublicArea}"/>
+                    <h:outputText value="Type of public area:" rendered="#{!loggedInUserBean.admin}"/>
+                    <p:inputText value="#{orderCRUDMbean.selectedModifiable.typeOfPublicArea}"
+                                 rendered="#{!loggedInUserBean.admin}"/>
 
-                    <h:outputText value="House number:"/>
-                    <p:inputText value="#{orderCRUDMbean.selectedModifiable.houseNumber}"/>
+                    <h:outputText value="House number:" rendered="#{!loggedInUserBean.admin}"/>
+                    <p:inputText value="#{orderCRUDMbean.selectedModifiable.houseNumber}"
+                                 rendered="#{!loggedInUserBean.admin}"/>
 
-                    <h:outputText value="Courier:"/>
+                    <h:outputText value="Courier:" rendered="#{loggedInUserBean.admin}"/>
                     <p:selectOneMenu value="#{orderCRUDMbean.selectedModifiable.courier}"
-                                     converter="#{courierConverter}">
+                                     converter="#{courierConverter}" rendered="#{loggedInUserBean.admin}">
                         <f:selectItems value="#{courierCRUDMbean.list}" var="courier" itemLabel="#{courier.fullName}"
                                        itemValue="#{courier}"/>
                     </p:selectOneMenu>

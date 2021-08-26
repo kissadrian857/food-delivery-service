@@ -10,13 +10,17 @@
     <ui:define name="title">Foods</ui:define>
     <ui:define name="content">
         <h:form id="mainForm" rendered="#{loggedInUserBean.loggedIn}">
-            <p:commandButton value="New" icon="pi pi-save" onclick="PF('newFoodDialog').show()"/>
-            <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
-                             actionListener="#{foodCRUDMbean.remove}"/>
-            <p:commandButton value="Modify" icon="pi pi-pencil" oncomplete="PF('modifyFoodDialog').show()"
-                             update=":foodDialog2"
-                             actionListener="#{foodCRUDMbean.initializeModifiable}"
-                             disabled="#{foodCRUDMbean.disableModifyButton()}"/>
+            <p:toolbar rendered="#{loggedInUserBean.admin}">
+                <p:toolbarGroup>
+                    <p:commandButton value="New" icon="pi pi-save" onclick="PF('newFoodDialog').show()"/>
+                    <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
+                                     actionListener="#{foodCRUDMbean.remove}"/>
+                    <p:commandButton value="Modify" icon="pi pi-pencil" oncomplete="PF('modifyFoodDialog').show()"
+                                     update=":foodDialog2"
+                                     actionListener="#{foodCRUDMbean.initializeModifiable}"
+                                     disabled="#{foodCRUDMbean.disableModifyButton()}"/>
+                </p:toolbarGroup>
+            </p:toolbar>
             <p:dataTable id="foods" var="food" value="#{foodCRUDMbean.list}" rowKey="#{food.id}"
                          selection="#{foodCRUDMbean.selectedEntities}">
                 <f:facet name="header">
@@ -49,7 +53,8 @@
                 </p:rowExpansion>
             </p:dataTable>
             <!-- RENDELÉS FELVÉTELE-->
-            <p:commandButton value="Buy" icon="pi pi-shopping-cart" onclick="PF('makeOrderDialog').show()"/>
+            <p:commandButton value="Buy" icon="pi pi-shopping-cart" onclick="PF('makeOrderDialog').show()"
+                             rendered="#{!loggedInUserBean.admin}"/>
         </h:form>
         <!--ÚJ ELEM HOZZÁADÁSA -->
         <p:dialog id="foodDialog1" header="Add a new food" modal="true" closable="true" widgetVar="newFoodDialog">
