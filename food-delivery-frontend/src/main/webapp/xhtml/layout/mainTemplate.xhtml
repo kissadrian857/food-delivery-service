@@ -22,7 +22,6 @@
                                      styleClass="ui-button-info"/>
                     <p:outputLabel rendered="#{loggedInUserBean.isLoggedIn()}"
                                    value="Logged in user: #{loggedInUserBean.model.username}   "/>
-                    <!--TODO substitute appropriate parts!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
                     <p:commandButton actionListener="#{loginRequestBean.doLogout()}"
                                      rendered="#{loggedInUserBean.isLoggedIn()}" value="Logout"
                                      icon="pi pi-fw pi-sign-out"

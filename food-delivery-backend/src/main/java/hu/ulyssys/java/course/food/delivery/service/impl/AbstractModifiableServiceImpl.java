@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 public abstract class AbstractModifiableServiceImpl<T extends AbstractModifiableEntity> extends AbstractServiceImpl<T> implements CoreModifiableService<T> {
     @Inject
-    private CoreModifiableDAO<T> dao;
+    protected CoreModifiableDAO<T> dao;
 
     @Override
     public void update(T entity) {

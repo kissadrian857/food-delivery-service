@@ -32,7 +32,7 @@
                     <h:outputText value="#{order.deliveryDate}"/>
                 </p:column>
                 <p:column headerText="Courier">
-                    <h:outputText value="#{order.courier}"/>
+                    <h:outputText value="#{order.courier.fullName}"/>
                 </p:column>
 
                 <!-- TODO implementálni a lista megjelenítését -->
@@ -88,6 +88,13 @@
 
                     <h:outputText value="House number:"/>
                     <p:inputText value="#{orderCRUDMbean.selectedModifiable.houseNumber}"/>
+
+                    <h:outputText value="Courier:"/>
+                    <p:selectOneMenu value="#{orderCRUDMbean.selectedModifiable.courier}"
+                                     converter="#{courierConverter}">
+                        <f:selectItems value="#{courierCRUDMbean.list}" var="courier" itemLabel="#{courier.fullName}"
+                                       itemValue="#{courier}"/>
+                    </p:selectOneMenu>
 
                     <p:commandButton value="Modify" actionListener="#{orderCRUDMbean.modify()}" process="formPanel"
                                      oncomplete="PF('modifyOrderDialog').hide()" update=":mainForm"/>

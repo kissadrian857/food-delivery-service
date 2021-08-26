@@ -5,6 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractModifiableEntity extends AbstractEntity {
@@ -41,5 +42,19 @@ public abstract class AbstractModifiableEntity extends AbstractEntity {
 
     public void setModifierUser(User modifierUser) {
         this.modifierUser = modifierUser;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        AbstractModifiableEntity that = (AbstractModifiableEntity) o;
+        return Objects.equals(modifiedDate, that.modifiedDate) && Objects.equals(creatorUser, that.creatorUser) && Objects.equals(modifierUser, that.modifierUser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), modifiedDate, creatorUser, modifierUser);
     }
 }

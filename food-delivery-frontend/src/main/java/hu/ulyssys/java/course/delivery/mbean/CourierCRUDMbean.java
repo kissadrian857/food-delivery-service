@@ -20,4 +20,10 @@ public class CourierCRUDMbean extends CoreModifiableCRUDMbean<Courier> {
     protected Courier initNewEntity() {
         return new Courier();
     }
+
+    @Override
+    public void save() {
+        newEntity.setFullName(newEntity.getFirstName() + " " + newEntity.getLastName());
+        super.save();
+    }
 }

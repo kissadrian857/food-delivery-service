@@ -2,6 +2,7 @@ package hu.ulyssys.java.course.food.delivery.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
@@ -26,5 +27,18 @@ public abstract class AbstractEntity {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractEntity that = (AbstractEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(creationDate, that.creationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, creationDate);
     }
 }
