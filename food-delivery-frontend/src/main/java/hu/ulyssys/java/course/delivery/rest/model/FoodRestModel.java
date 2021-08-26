@@ -1,17 +1,10 @@
-package hu.ulyssys.java.course.food.delivery.entity;
+package hu.ulyssys.java.course.delivery.rest.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "food")
-public class Food extends AbstractModifiableEntity {
-    @Column(name = "name", length = 200)
+public class FoodRestModel extends CoreRestModel {
     private String name;
-    @Column(name = "description", length = 500)
+
     private String description;
-    @Column(name = "price")
+
     private Double price;
 
     public String getName() {

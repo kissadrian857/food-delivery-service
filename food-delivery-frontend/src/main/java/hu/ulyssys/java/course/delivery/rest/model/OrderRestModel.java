@@ -1,32 +1,21 @@
-package hu.ulyssys.java.course.food.delivery.entity;
+package hu.ulyssys.java.course.delivery.rest.model;
 
-
-import hu.ulyssys.java.course.food.delivery.converter.FoodListConverter;
-
-import javax.persistence.*;
-import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "order_table")
-public class Order extends AbstractModifiableEntity {
-    @Column(name = "delivery_date")
+public class OrderRestModel extends CoreRestModel{
     private Date deliveryDate;
-    @JoinColumn(name = "courier_id")
-    @ManyToOne
-    private Courier courier;
-    //TODO minimum egy eleme legyen
-    @Column(name = "foods")
-    @Convert(converter = FoodListConverter.class)
-    private List<Food> foods;
-    @Column(name = "settlement", length = 200)
+
+    private Long courierId;
+
+    private List<FoodRestModel> foods;
+
     private String settlement;
-    @Column(name = "public_domain", length = 200)
+
     private String publicDomain;
-    @Column(name = "public_area_type", length = 200)
+
     private String typeOfPublicArea;
-    @Column(name = "house_number", length = 200)
+
     private String houseNumber;
 
     public Date getDeliveryDate() {
@@ -37,19 +26,19 @@ public class Order extends AbstractModifiableEntity {
         this.deliveryDate = deliveryDate;
     }
 
-    public Courier getCourier() {
-        return courier;
+    public Long getCourierId() {
+        return courierId;
     }
 
-    public void setCourier(Courier courier) {
-        this.courier = courier;
+    public void setCourierId(Long courierId) {
+        this.courierId = courierId;
     }
 
-    public List<Food> getFoods() {
+    public List<FoodRestModel> getFoods() {
         return foods;
     }
 
-    public void setFoods(List<Food> foods) {
+    public void setFoods(List<FoodRestModel> foods) {
         this.foods = foods;
     }
 
@@ -83,5 +72,9 @@ public class Order extends AbstractModifiableEntity {
 
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
+    }
+
+    public void addFoodModel(FoodRestModel foodModel){
+        foods.add(foodModel);
     }
 }

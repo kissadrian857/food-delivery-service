@@ -9,7 +9,7 @@
 <ui:composition template="layout/mainTemplate.xhtml">
     <ui:define name="title">Couriers</ui:define>
     <ui:define name="content">
-        <h:form id="mainForm" rendered="#{loggedInUserBean.loggedIn}">
+        <h:form id="mainForm" rendered="#{loggedInUserBean.admin}" >
             <p:commandButton value="New" icon="pi pi-save" onclick="PF('newCourierDialog').show()"/>
             <p:commandButton value="Remove" icon="pi pi-trash" update="mainForm"
                              actionListener="#{courierCRUDMbean.remove}"/>
@@ -81,7 +81,7 @@
                     <p:inputText value="#{courierCRUDMbean.selectedModifiable.lastName}"/>
 
                     <h:outputText value="Phone number"/>
-                    <p:inputText value="#{courierCRUDMbean.selectedModifiable.phoneNumber}"/>
+                    <p:inputText value="#{courierCRUDMbean.selectedModifiable.phoneNumber}" />
 
                     <p:commandButton value="Modify" actionListener="#{courierCRUDMbean.modify()}" process="formPanel2"
                                      oncomplete="PF('modifyCourierDialog').hide()" update=":mainForm"/>

@@ -1,0 +1,12 @@
+GET http://localhost:8080/api/courier
+Accept: application/json
+
+###
+GET http://localhost:8080/api/order
+Accept: application/json
+
+###
+GET http://localhost:8080/api/food
+Accept: application/json
+
+###

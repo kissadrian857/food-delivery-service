@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Table(name = "user_table")
 public class User extends AbstractEntity {
     public static final String FIND_BY_USERNAME = "AppUser.findByUsername";
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String userName;
     @Column(name = "password")
     private String password;

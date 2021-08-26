@@ -11,9 +11,10 @@ import java.util.Objects;
 @Table(name = "courier")
 public class Courier extends AbstractModifiableEntity {
     public static final String FIND_BY_FULLNAME = "Courier.findByFullName";
-    @Column(name = "first_name")
+    @Column(name = "first_name", length = 500)
     private String firstName;
-    @Column(name = "last_name")
+    //TODO különböző legyen a vezeték és keresztnév
+    @Column(name = "last_name", length = 500)
     private String lastName;
     @Column(name = "phone_number")
     private String phoneNumber;
