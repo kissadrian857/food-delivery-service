@@ -9,7 +9,7 @@ import java.util.*;
 
 public abstract class CoreCRUDMbean<T extends AbstractEntity> implements Serializable {
     protected T newEntity;
-    private List<T> list;
+    protected List<T> list;
     protected List<T> selectedEntities;
     protected CoreService<T> service;
     protected Map<T, BooleanWrapper> booleans;

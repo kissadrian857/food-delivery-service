@@ -10,8 +10,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 
 @Named
 @ViewScoped
@@ -58,5 +60,21 @@ public class OrderCRUDMbean extends CoreModifiableCRUDMbean<Order> {
     public List<Food> getFoodListForOrder(Order order) {
         List<Food> foodList = order.getFoods();
         return foodList;
+    }
+
+    @Override
+    public List<Order> getList() {
+        if (userBean.getModel() == null) {
+            return null;
+        } else if (userBean.isAdmin()) {
+            return super.getList();
+        }
+        List<Order> personalOrders = new ArrayList<>();
+        for (Order o : list) {
+            if (o.getCreatorUser().getUserName().equals(userBean.getModel().getUsername())) {
+                personalOrders.add(o);
+            }
+        }
+        return personalOrders;
     }
 }

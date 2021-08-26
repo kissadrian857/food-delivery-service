@@ -60,15 +60,11 @@
                     </p:selectBooleanCheckbox>
                 </p:column>
                 <p:rowExpansion>
-                    <!--                    <p:repeat value="#{order.foods}" var="actFood">-->
-                    <!--                        <p:outputLabel value="#{actFood.name}"/>-->
-                    <!--                    </p:repeat>-->
                     <h:outputText value="Created by #{order.creatorUser.userName} (#{order.creationDate})"/>
                     <br/>
                     <h:outputText value="Modified by #{order.modifierUser.userName} (#{order.modifiedDate})"/>
                 </p:rowExpansion>
             </p:dataTable>
-            <!--    <h:outputText value="Number of selected entites: #{foodCRUDMbean.selectedEntities.size()}"/>-->
         </h:form>
         <!-- MEGLÉVŐ RENDELÉS MÓDOSÍTÁSA -->
         <p:dialog id="orderDialog" widgetVar="modifyOrderDialog" header="Modify an existing order" modal="true"
@@ -78,9 +74,6 @@
                     <h:outputText value="Delivery date:" rendered="#{loggedInUserBean.admin}"/>
                     <p:datePicker id="basic" value="#{orderCRUDMbean.selectedModifiable.deliveryDate}"
                                   rendered="#{loggedInUserBean.admin}"/>
-
-                    <!--            <h:outputText value="Courier ID:"/>-->
-                    <!--            <p:inputText value="#{orderCRUDMbean.selectedModifiable.courier}"/>-->
 
                     <h:outputText value="Settlement:" rendered="#{!loggedInUserBean.admin}"/>
                     <p:inputText value="#{orderCRUDMbean.selectedModifiable.settlement}"
